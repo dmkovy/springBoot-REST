@@ -8,9 +8,9 @@
 <body>
 <header>
     <h3 th:inline="text">
-        <span th:text="${us.email}">email</span>
+        <span th:text="${userByEmail.email}">email</span>
         <em>with roles:</em>
-        <th:block th:each="role: ${us.roles}">
+        <th:block th:each="role: ${userByEmail.roles}">
             <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
             <span th:if="${role.name} == 'ROLE_USER'">USER</span>
         </th:block>

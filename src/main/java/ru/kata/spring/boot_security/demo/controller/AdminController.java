@@ -25,18 +25,15 @@ public class AdminController {
 
     @GetMapping("/users")
     public String printAllUsers(Model model, Principal principal) {
-        model.addAttribute("us", userService.findByEmail(principal.getName()));
+        model.addAttribute("userByEmail", userService.findByEmail(principal.getName()));
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("pr", principal.getName());
-        model.addAttribute("roles", roleService.findAll());
         return "users";
     }
 
     @GetMapping(value = "/edit/{id}")
     public String showEditUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        List<Role> roles = roleService.findAll();
-        model.addAttribute("roles", roles);
+        model.addAttribute("roles", roleService.findAll());
         return "edit";
     }
 
@@ -49,8 +46,7 @@ public class AdminController {
     @GetMapping(value = "/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        List<Role> roles = roleService.findAll();
-        model.addAttribute("roles", roles);
+        model.addAttribute("roles", roleService.findAll());
         return "new";
     }
 
