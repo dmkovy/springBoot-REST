@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Spring Security Example</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<header>
+    <h3 th:inline="text">
+        <span th:text="${user.email}">some text</span>
+        <em>with roles:</em>
+        <th:block th:each="role: ${user.roles}">
+            <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
+            <span th:if="${role.name} == 'ROLE_USER'">USER</span>
+        </th:block>
+    </h3>
+</header>
+<hr>
+
+<table th:style="'border: 1px solid black; border-collapse: collapse; margin: 2px;'">
+    <thead>
+    <tr th:style="'font-weight: bold; text-align: center;'">
+        <td th:style="'border: 1px solid black; padding: 5px;'">ID</td>
+        <td th:style="'border: 1px solid black; padding: 5px;'">First Name</td>
+        <td th:style="'border: 1px solid black; padding: 5px;'">Last Name</td>
+        <td th:style="'border: 1px solid black; padding: 5px;'">Age</td>
+        <td th:style="'border: 1px solid black; padding: 5px;'">Email</td>
+        <td th:style="'border: 1px solid black; padding: 5px;'">Role</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getId()}"></td>
+        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getFirstName()}"></td>
+        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getLastName()}"></td>
+        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getAge()}"></td>
+        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getEmail()}"></td>
+        <td th:style="'border: 1px solid black; padding: 5px;'" >
+            <th:block th:each="role: ${user.roles}">
+                <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
+                <span th:if="${role.name} == 'ROLE_USER'">USER</span>
+            </th:block>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--<br>-->
+<!--<form sec:authorize="hasRole('ADMIN')" th:action="@{/admin}">-->
+<!--    <input type="submit" value="Admin Page"/>-->
+<!--</form>-->
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
 
 
 </body>
