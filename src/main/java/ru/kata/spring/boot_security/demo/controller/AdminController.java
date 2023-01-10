@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
 
+    @Autowired
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
@@ -33,7 +35,8 @@ public class AdminController {
     @GetMapping(value = "/edit/{id}")
     public String showEditUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", roleService.findAll());
+        List<Role> roles = roleService.findAllRoles();
+        model.addAttribute("allRoles", roles);
         return "edit";
     }
 
@@ -46,7 +49,8 @@ public class AdminController {
     @GetMapping(value = "/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.findAll());
+        List<Role> roles = roleService.findAllRoles();
+        model.addAttribute("allRoles", roles);
         return "new";
     }
 

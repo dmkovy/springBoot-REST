@@ -5,10 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
@@ -24,8 +22,7 @@ public class Role implements GrantedAuthority {
         return name;
     }
 
-    @Override
-    public String toString() {
+    public String getNameWithoutPrefix() {
         return this.name.replace("ROLE_", "");
     }
 }
