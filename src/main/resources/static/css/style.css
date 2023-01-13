@@ -1,0 +1,45 @@
+html {
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+.container-fluid{
+    padding: 0;
+}
+.roles {
+    color: aliceblue;
+    font-size: 1.3rem;
+}
+.bd-navbar {
+    min-height: 4rem;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 10%);
+}
+.btn-logout {
+    color: darkgray;
+}
+.sidebar {
+    padding-left: 0;
+}
+
+.inform-panel {
+    background-color:ghostwhite;
+    height: 95vh;
+}
+
+/*.table-2 > :not(caption) > tr > td*/
+.table-1 {
+    border: 1px solid #dee2e6;
+    border-collapse: separate;
+    border-radius: 0.3rem;
+}
+th.table-name {
+    font-size: 1.2rem;
+    border: 0px;
+}
+.newuser {
+    max-width: 600px;
+    margin: 0 auto;
+}

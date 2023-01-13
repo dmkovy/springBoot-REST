@@ -4,57 +4,100 @@
       lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Spring Security Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>User page</title>
+
 </head>
 <body>
-<header>
-    <h3 th:inline="text">
-        <span th:text="${user.email}">some text</span>
-        <em>with roles:</em>
-        <th:block th:each="role: ${user.roles}">
-            <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
-            <span th:if="${role.name} == 'ROLE_USER'">USER</span>
-        </th:block>
-    </h3>
-</header>
-<hr>
+<div class="container-fluid">
 
-<table th:style="'border: 1px solid black; border-collapse: collapse; margin: 2px;'">
-    <thead>
-    <tr th:style="'font-weight: bold; text-align: center;'">
-        <td th:style="'border: 1px solid black; padding: 5px;'">ID</td>
-        <td th:style="'border: 1px solid black; padding: 5px;'">First Name</td>
-        <td th:style="'border: 1px solid black; padding: 5px;'">Last Name</td>
-        <td th:style="'border: 1px solid black; padding: 5px;'">Age</td>
-        <td th:style="'border: 1px solid black; padding: 5px;'">Email</td>
-        <td th:style="'border: 1px solid black; padding: 5px;'">Role</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getId()}"></td>
-        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getFirstName()}"></td>
-        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getLastName()}"></td>
-        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getAge()}"></td>
-        <td th:style="'border: 1px solid black; padding: 5px;'" th:text="${user.getEmail()}"></td>
-        <td th:style="'border: 1px solid black; padding: 5px;'" >
-            <th:block th:each="role: ${user.roles}">
-                <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
-                <span th:if="${role.name} == 'ROLE_USER'">USER</span>
-            </th:block>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<!--<br>-->
-<!--<form sec:authorize="hasRole('ADMIN')" th:action="@{/admin}">-->
-<!--    <input type="submit" value="Admin Page"/>-->
-<!--</form>-->
-<br>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout"/>
-</form>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bd-navbar mb-3">
+        <div class="collapse navbar-collapse d-flex">
+            <div class="roles p-2 flex-grow-1" th:inline="text">
+                <strong th:text="${user.email}">some text</strong>
+                with roles:
+                <th:block th:each="role: ${user.roles}">
+                    <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
+                    <span th:if="${role.name} == 'ROLE_USER'">USER</span>
+                </th:block>
+            </div>
+            <div class="">
+                <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+                    <button class="btn btn-link btn-logout" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex">
+        <div class="sidebar d-flex flex-column col-2">
+            <ul class="list-group" th:each="role: ${user.roles}">
+                <li class="list-group-item" th:if="${role.name} == 'ROLE_ADMIN'"><a href="/admin">Admin</a></li>
+                <li class="list-group-item active" aria-current="true" th:if="${role.name} == 'ROLE_USER'">User</li>
+            </ul>
+        </div>
+        <div class="inform-panel col">
+            <h1>User information-page</h1>
+            <table class="table-1 table">
 
 
+                <th class="table-name">About user</th>
+
+
+                <tbody>
+                <tr>
+                    <td>
+                        <table class="table-2 table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <td th:text="${user.getId()}"></td>
+                                <td th:text="${user.getFirstName()}"></td>
+                                <td th:text="${user.getLastName()}"></td>
+                                <td th:text="${user.getAge()}"></td>
+                                <td th:text="${user.getEmail()}"></td>
+                                <td>
+                                    <th:block th:each="role: ${user.roles}">
+                                        <span th:if="${role.name} == 'ROLE_ADMIN'">ADMIN</span>
+                                        <span th:if="${role.name} == 'ROLE_USER'">USER</span>
+                                    </th:block>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
 </body>
 </html>

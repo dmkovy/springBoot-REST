@@ -13,7 +13,7 @@ public interface UserService extends UserDetailsService {
 
     List<User> getAllUsers();
 
-    void updateUser(User user);
+    void updateUser(User user, Long id);
 
     void removeUserById(long id);
 
