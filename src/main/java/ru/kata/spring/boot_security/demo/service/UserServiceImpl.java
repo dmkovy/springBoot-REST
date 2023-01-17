@@ -1,11 +1,14 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.exceptions.UserExistException;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserDao;
 
@@ -14,6 +17,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
+
+    public static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
@@ -28,7 +33,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.saveUser(user);
+        try {
+            LOG.info("Saving user {}", user.getEmail());
+            userDao.saveUser(user);
+        } catch (Exception ex) {
+            LOG.error("Error during saving user. {}", ex.getMessage());
+            throw new UserExistException("The user " + user.getEmail() + " already exist.");
+        }
+
     }
 
     @Override
