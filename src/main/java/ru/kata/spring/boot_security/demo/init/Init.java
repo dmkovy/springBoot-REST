@@ -49,13 +49,13 @@ public class Init {
                 .build();
 
         User user = User.builder()
-				.firstName("user")
-				.lastName("user")
-				.age(55)
-				.email("user@us.er")
-				.password("user")
-				.roles(userRoleList)
-				.build();
+                .firstName("user")
+                .lastName("user")
+                .age(55)
+                .email("user@us.er")
+                .password("user")
+                .roles(userRoleList)
+                .build();
 
         userService.saveUser(admin);
         userService.saveUser(user);
