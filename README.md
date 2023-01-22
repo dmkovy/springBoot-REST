@@ -16,3 +16,4 @@
 
 ## User page
 ![Image alt](/assets/img/6_user-page.jpg)
+![Image alt](/assets/img/7_user-page.jpg)
