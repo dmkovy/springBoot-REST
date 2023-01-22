@@ -25,6 +25,18 @@ public class RoleDaoImpl implements RoleDao, Converter<String, Role> {
     }
 
     @Override
+    public void saveRole(Role role) {
+        entityManager.persist(role);
+    }
+
+    @Override
+    public Role findRoleByName(String role) {
+        return entityManager.createQuery("from Role where name = :name", Role.class)
+                .setParameter("name", role)
+                .getResultList().stream().findAny().orElse(null);
+    }
+
+    @Override
     public Role convert(String id) {
         Role role = new Role();
         role.setId(Long.valueOf(id));
